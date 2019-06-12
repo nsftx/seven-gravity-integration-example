@@ -1,5 +1,13 @@
 # seven-gravity-integration-example
 
+## Description
+
+Barebone example of integration in Seven platform by using Gravity Gateway package.
+
+Project is already prepared for communication with Master. Unique id of this application (slaveId) is `GatewayPlayground`.
+
+Application is deployed on [link]: https://seven-integration-example.7platform.net
+
 ## Project setup
 ```
 npm install
@@ -9,21 +17,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
