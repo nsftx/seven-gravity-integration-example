@@ -1,0 +1,19 @@
+// General
+$document-color-back: #cfd8dc !default;
+$document-color-back-inverted: #ffffff !default;
+$document-color-back-secondary: #fffdd3 !default;
+$document-color-text: #546e7a !default;
+$document-color-text-inverted: #ffffff !default;
+
+// Forms
+$form-input-label-color-text:  #2196f3 !default;
+$form-input-field-color-text: #546e7a !default;
+$form-input-field-color-border: #b0bec5 !default;
+$form-input-field-color-border-error: #dcab00 !default;
+$form-button-color-back: #2196f3 !default;
+$form-button-color-back-hover: darken($form-button-color-back, 10%);
+$form-button-color-shadow: #1565c0;
+$form-button-loader-overlay-color-back: rgba($document-color-text-inverted, 0.2);
+$form-button-loader-spinner-color-back: rgba(darken($form-button-color-back, 10%), 0.8);
+$form-button-loader-spinner-pie-color-back: darken($form-button-color-back, 20%);
+$form-button-label-color-text: $document-color-text-inverted;
