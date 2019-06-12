@@ -62,7 +62,10 @@ export default {
   },
   methods: {
     sendEvent() {
-      //TODO
+      gateway.sendMessage({
+        action: this.eventName,
+        data: this.eventData,
+      });
     },
   },
   components: {
