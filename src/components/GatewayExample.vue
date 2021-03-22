@@ -19,9 +19,12 @@
             </form-input>
           </div>
           <div class="form-input-container">
-            <v-jsoneditor v-model="eventData"
-              :options="jsonEditorOptions">
-            </v-jsoneditor>
+            <v-jsoneditor
+            v-model="eventData"
+            :options="jsonEditorOptions"
+            :plus="false"
+            height="400px"
+            />
           </div>
           <form-button :label="'Send'">
           </form-button>
@@ -32,7 +35,7 @@
 </template>
 
 <script>
-import VJsoneditor from 'vue-jsoneditor';
+import VJsoneditor from 'v-jsoneditor'
 import FormInput from './FormInput';
 import FormButton from './FormButton';
 
@@ -69,9 +72,9 @@ export default {
     },
   },
   components: {
-    FormInput,
-    FormButton,
     VJsoneditor,
+    FormInput,
+    FormButton
   },
 }
 </script>
