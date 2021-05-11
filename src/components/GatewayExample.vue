@@ -35,22 +35,27 @@
 </template>
 
 <script>
+import SlaveGateway from '@nsoft/seven-gravity-gateway/slave';
 import VJsoneditor from 'v-jsoneditor'
 import FormInput from './FormInput';
 import FormButton from './FormButton';
 
-const SlaveGateway = window.gravity.gateway.slave;
 const gateway = new SlaveGateway({
   slaveId : 'GatewayPlayground',
   data: {
     foo: 'bar',
   },
   debug: true,
+  load: () => {
+    gateway.emit('Slave.Loaded');
+  }
 });
+
 gateway.subscribe('*', (message) => { // eslint-disable-line
   // Gateway message received.
   // TODO: Define method
 });
+
 export default {
   name: 'GatewayExample',
   data() {
