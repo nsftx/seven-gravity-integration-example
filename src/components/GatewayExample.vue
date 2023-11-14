@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import slave_gateway from '@nsftx/seven-gravity-gateway/src/slave_gateway';
 import VJsoneditor from 'v-jsoneditor'
 import FormInput from './FormInput';
 import FormButton from './FormButton';
@@ -43,19 +44,21 @@ const url = new URL(window.location.href);
 const params = url.searchParams;
 // get target key/value from URLSearchParams object
 const slaveId = params.get('slaveId');
-const SlaveGateway = window.gravity.gateway.slave;
+const SlaveGateway = slave_gateway;
 const gateway = new SlaveGateway({
   slaveId : slaveId || 'GatewayPlayground',
   data: {
     foo: 'bar',
   },
   load: function (loadData) {
+    // eslint-disable-next-line no-console
     console.info('[SGIE] Received load data', loadData);
   },
   debug: true,
 });
 gateway.subscribe('*', (message) => { // eslint-disable-line
   // Gateway message received.
+  // eslint-disable-next-line no-console
   console.info('[SGIE] Message received', message);
 });
 export default {
