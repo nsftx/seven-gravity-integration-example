@@ -39,17 +39,24 @@ import VJsoneditor from 'v-jsoneditor'
 import FormInput from './FormInput';
 import FormButton from './FormButton';
 
+const url = new URL(window.location.href);
+const params = url.searchParams;
+// get target key/value from URLSearchParams object
+const slaveId = params.get('slaveId');
 const SlaveGateway = window.gravity.gateway.slave;
 const gateway = new SlaveGateway({
-  slaveId : 'GatewayPlayground',
+  slaveId : slaveId || 'GatewayPlayground',
   data: {
     foo: 'bar',
+  },
+  load: function (loadData) {
+    console.info('[SGIE] Received load data', loadData);
   },
   debug: true,
 });
 gateway.subscribe('*', (message) => { // eslint-disable-line
   // Gateway message received.
-  // TODO: Define method
+  console.info('[SGIE] Message received', message);
 });
 export default {
   name: 'GatewayExample',
@@ -62,6 +69,12 @@ export default {
         modes: ['text', 'code'],
       },
     }
+  },
+  mounted() {
+    gateway.sendMessage({
+      action: 'Slave.Loaded',
+      data: {},
+    });
   },
   methods: {
     sendEvent() {

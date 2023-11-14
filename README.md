@@ -8,6 +8,10 @@ Project is already prepared for communication with Master. Unique id of this app
 
 Application is deployed on [link]: https://seven-integration-example.7platform.net
 
+### Options
+
+By default `slaveId` is set to `GatewayPlayground` but you can force slaveId by passing `slaveId=YOurSlaveId` as query param.
+
 ## Project setup
 ```
 npm install
