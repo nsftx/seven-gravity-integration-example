@@ -7,6 +7,8 @@
     </p>
     <div class="actions">
       <div class="event-emitter-container">
+        <button id="print" @click="printNumbers">Print Numbers</button>
+        <button id="clear" @click="clearNumbers">Clear</button>
         <form @submit.prevent="sendEvent">
           <div class="form-input-container">
             <form-input :name="'event'"
@@ -61,6 +63,17 @@ gateway.subscribe('*', (message) => { // eslint-disable-line
   // eslint-disable-next-line no-console
   console.info('[SGIE] Message received', message);
 });
+var i, el;
+
+var createdElements = {};
+var events = [];
+
+function attachAlert(element) {
+    element.onclick = function() { alert(element.innerHTML); };
+}
+function reallyBadAttachAlert(element) {
+    return function() { alert(element.innerHTML); };
+}
 export default {
   name: 'GatewayExample',
   data() {
@@ -78,6 +91,24 @@ export default {
       action: 'Slave.Loaded',
       data: {},
     });
+
+    setInterval(function () {
+      var heapSize = window.performance.memory.totalJSHeapSize;
+      var heapLimit = window.performance.memory.jsHeapSizeLimit;
+      var heapUsage = heapSize / heapLimit;
+      const memoryUsagePercentage = heapUsage * 100;
+      const { jsHeapSizeLimit, totalJSHeapSize, usedJSHeapSize } = window.performance.memory;
+      // eslint-disable-next-line no-console
+      console.log('Recording mmemory usage', {
+        count: memoryUsagePercentage,
+        ramUsageMB: usedJSHeapSize / 1000 / 1000, // MB
+        details: {
+          jsHeapSizeLimit,
+          totalJSHeapSize,
+          usedJSHeapSize
+        }
+      });
+    }, 10000);
   },
   methods: {
     sendEvent() {
@@ -86,6 +117,25 @@ export default {
         data: this.eventData,
       });
     },
+    printNumbers() {
+      for (i = 0; i < 1000000; i++) {
+        el = document.createElement('div');
+        el.innerHTML = i;
+
+        /** posibility one: you're storing the element somewhere **/
+        attachAlert(el);
+        createdElements['div' + i] = el;
+
+        /** posibility two: you're storing the callbacks somewhere **/
+        event = reallyBadAttachAlert(el);
+        events.push(event);
+        el.onclick = event;
+
+      }
+    },
+    clearNumbers() {
+      window.longArray = null;
+    }
   },
   components: {
     VJsoneditor,
