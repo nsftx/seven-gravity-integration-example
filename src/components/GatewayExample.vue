@@ -30,6 +30,7 @@ export default {
       let i = document.querySelector('iframe');
       i.parentNode.removeChild(i);
       i = null;
+
     },
   },
 }
