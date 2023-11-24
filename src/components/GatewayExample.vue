@@ -118,7 +118,7 @@ export default {
       });
     },
     printNumbers() {
-      for (i = 0; i < 10000; i++) {
+      for (i = 0; i < 100000; i++) {
         el = document.createElement('div');
         el.innerHTML = i;
 
