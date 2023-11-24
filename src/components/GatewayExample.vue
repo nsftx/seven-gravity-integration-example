@@ -1,66 +1,15 @@
 <template>
   <div class="hello">
-    <h1>Welcome to Your Seven Intergation Example</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the project README.
-    </p>
     <div class="actions">
-      <div class="event-emitter-container">
-        <form @submit.prevent="sendEvent">
-          <div class="form-input-container">
-            <form-input :name="'event'"
-              :label="'Event'"
-              :placeholder="'Event'"
-              :autofocus="true"
-              :validation="'required'"
-              v-model="eventName"
-            >
-            </form-input>
-          </div>
-          <div class="form-input-container">
-            <v-jsoneditor
-            v-model="eventData"
-            :options="jsonEditorOptions"
-            :plus="false"
-            height="400px"
-            />
-          </div>
-          <form-button :label="'Send'">
-          </form-button>
-        </form>
-      </div>
+      <button @click="removeIframe">Remove iframe</button>
+      <h4>Iframe:</h4>
+      <iframe id="iframee" src="https://memory-leak.surge.sh" frameborder="0"></iframe>
     </div>
   </div>
 </template>
 
 <script>
-import slave_gateway from '@nsftx/seven-gravity-gateway/src/slave_gateway';
-import VJsoneditor from 'v-jsoneditor'
-import FormInput from './FormInput';
-import FormButton from './FormButton';
 
-const url = new URL(window.location.href);
-const params = url.searchParams;
-// get target key/value from URLSearchParams object
-const slaveId = params.get('slaveId');
-const SlaveGateway = slave_gateway;
-const gateway = new SlaveGateway({
-  slaveId : slaveId || 'GatewayPlayground',
-  data: {
-    foo: 'bar',
-  },
-  load: function (loadData) {
-    // eslint-disable-next-line no-console
-    console.info('[SGIE] Received load data', loadData);
-  },
-  debug: true,
-});
-gateway.subscribe('*', (message) => { // eslint-disable-line
-  // Gateway message received.
-  // eslint-disable-next-line no-console
-  console.info('[SGIE] Message received', message);
-});
 export default {
   name: 'GatewayExample',
   data() {
@@ -74,23 +23,14 @@ export default {
     }
   },
   mounted() {
-    gateway.sendMessage({
-      action: 'Slave.Loaded',
-      data: {},
-    });
+
   },
   methods: {
-    sendEvent() {
-      gateway.sendMessage({
-        action: this.eventName,
-        data: this.eventData,
-      });
+    removeIframe() {
+      let i = document.querySelector('iframe');
+      i.parentNode.removeChild(i);
+      i = null;
     },
-  },
-  components: {
-    VJsoneditor,
-    FormInput,
-    FormButton
   },
 }
 </script>
