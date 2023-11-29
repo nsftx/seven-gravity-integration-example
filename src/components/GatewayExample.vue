@@ -24,12 +24,17 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('message', (e, data) => {
+    window.addEventListener('message', (e) => {
       // eslint-disable-next-line no-console
-      console.log('messae recievied', data);
+      console.log('messae recievied', e);
     });
      // eslint-disable-next-line no-console
-    console.log('window parent exist', window.parent);
+    if (window.parent) {
+      console.log('window parent exist', window.parent);
+      window.parent.postMessage('test from iframe', '*')
+    } else {
+      console.log('no parent', window);
+    }
   },
   methods: {
     addIframe() {
